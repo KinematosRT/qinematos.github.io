@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Qinematos API Reference - REST, gRPC, and MCP API documentation.">
+  <title>API Reference - Qinematos Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="../" class="logo">Q<span>inematos</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../#features">Features</a></li>
+        <li><a href="../#architecture">Architecture</a></li>
+        <li><a href="../#performance">Performance</a></li>
+        <li><a href="./" class="active">Documentation</a></li>
+        <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Documentation Content -->
+  <main class="container">
+    <div class="docs-layout">
+      <aside class="docs-sidebar">
+        <ul class="docs-nav">
+          <li><a href="./">Overview</a></li>
+          <li><a href="quick-start.html">Quick Start</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="api-reference.html" class="active">API Reference</a></li>
+        </ul>
+      </aside>
+
+      <article class="docs-content">
+        <h1>API Reference</h1>
+
+        <p>Qinematos exposes three API interfaces: REST (port 8080), gRPC (port 9000), and MCP (port 8080/mcp).</p>
+
+        <h2>REST API (Port 8080)</h2>
+
+        <h3>Health & Info</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/health</code></td>
+              <td>Health check with system statistics</td>
+            </tr>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/info</code></td>
+              <td>System information and capabilities</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Topics</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/topics</code></td>
+              <td>List all topics</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/api/v1/topics</code></td>
+              <td>Create a new topic</td>
+            </tr>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/topics/{name}</code></td>
+              <td>Get topic metadata</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/api/v1/topics/{name}/publish</code></td>
+              <td>Publish data to a topic</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Create Topic</h4>
+        <div class="code-header">
+          <span>Request</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST http://localhost:8080/api/v1/topics \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "finance.trades",
+    "description": "Real-time trade data",
+    "schemaType": "finance.market_data"
+  }'</code></pre>
+
+        <h4>Publish to Topic</h4>
+        <div class="code-header">
+          <span>Request</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST http://localhost:8080/api/v1/topics/finance.trades/publish \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": [
+      {"symbol": "AAPL", "price": 185.50, "volume": 1000000},
+      {"symbol": "GOOG", "price": 142.30, "volume": 500000}
+    ],
+    "lineageId": "optional-trace-id"
+  }'</code></pre>
+
+        <h3>Schemas & Statistics</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/schemas</code></td>
+              <td>List available Arrow schemas</td>
+            </tr>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/ipc/stats</code></td>
+              <td>IPC engine statistics</td>
+            </tr>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/api/v1/storage/stats</code></td>
+              <td>Xodus persistence statistics</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Demo Endpoints</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/demo/status</code></td>
+              <td>Full system status dashboard</td>
+            </tr>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/demo/ffm?size=N</code></td>
+              <td>FFM native memory demonstration</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/demo/zero-copy?records=N</code></td>
+              <td>Zero-copy IPC live demonstration</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/demo/agents?count=N</code></td>
+              <td>Agent registration demonstration</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <hr style="margin: 3rem 0; border-color: var(--border-color);">
+
+        <h2>gRPC API (Port 9000)</h2>
+
+        <p>The gRPC API provides streaming subscriptions for real-time context delivery.</p>
+
+        <h3>ContextOrchestrator Service</h3>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Request</th>
+              <th>Response</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Watch</code></td>
+              <td>WatchRequest</td>
+              <td>stream SubscriptionUpdate</td>
+              <td>Subscribe to topic updates (streaming)</td>
+            </tr>
+            <tr>
+              <td><code>Publish</code></td>
+              <td>PublishRequest</td>
+              <td>PublishResponse</td>
+              <td>Publish context to a topic</td>
+            </tr>
+            <tr>
+              <td><code>CreateTopic</code></td>
+              <td>CreateTopicRequest</td>
+              <td>CreateTopicResponse</td>
+              <td>Create a new topic</td>
+            </tr>
+            <tr>
+              <td><code>ListTopics</code></td>
+              <td>ListTopicsRequest</td>
+              <td>ListTopicsResponse</td>
+              <td>List all topics</td>
+            </tr>
+            <tr>
+              <td><code>GetTopic</code></td>
+              <td>GetTopicRequest</td>
+              <td>TopicMetadata</td>
+              <td>Get topic details</td>
+            </tr>
+            <tr>
+              <td><code>Acknowledge</code></td>
+              <td>AcknowledgeRequest</td>
+              <td>AcknowledgeResponse</td>
+              <td>Acknowledge receipt (exactly-once)</td>
+            </tr>
+            <tr>
+              <td><code>HealthCheck</code></td>
+              <td>HealthCheckRequest</td>
+              <td>HealthCheckResponse</td>
+              <td>Service health status</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Watch API Example</h3>
+
+        <p>The Watch API is the primary method for receiving zero-copy context updates.</p>
+
+        <div class="code-header">
+          <span>WatchRequest</span>
+        </div>
+        <pre><code>message WatchRequest {
+  string agent_id = 1;
+  repeated string topic_patterns = 2;  // e.g., ["finance.*", "market.**"]
+  AgentCapabilities capabilities = 3;
+  DeliveryOptions delivery_options = 4;
+  int64 from_version = 5;  // Optional: replay from version
+}</code></pre>
+
+        <div class="code-header">
+          <span>SubscriptionUpdate (Response Stream)</span>
+        </div>
+        <pre><code>message SubscriptionUpdate {
+  string update_id = 1;
+  string topic = 2;
+  int64 version = 3;
+  int64 timestamp_nanos = 4;
+
+  // Key field: IPC handle for zero-copy access
+  IPCHandle ipc_handle = 5;
+
+  // Fallback: inline Arrow payload (if IPC not available)
+  bytes arrow_payload = 6;
+
+  LineageMetadata lineage = 7;
+}</code></pre>
+
+        <h3>IPCHandle Structure</h3>
+
+        <p>The IPCHandle contains everything needed for zero-copy data access:</p>
+
+        <div class="code-header">
+          <span>IPCHandle</span>
+        </div>
+        <pre><code>message IPCHandle {
+  string handle_id = 1;
+  string file_path = 2;      // e.g., "/dev/shm/qinematos/contexts/finance.trades/123.arrow"
+  int64 offset = 3;          // Byte offset (after header)
+  int64 length = 4;          // Payload length
+  string checksum = 5;       // Integrity verification
+}</code></pre>
+
+        <h3>Delivery Methods</h3>
+
+        <div class="code-header">
+          <span>DeliveryOptions</span>
+        </div>
+        <pre><code>enum DeliveryMethod {
+  DELIVERY_METHOD_IPC = 0;          // Zero-copy, local only
+  DELIVERY_METHOD_ARROW_FLIGHT = 1; // Remote, distributed
+  DELIVERY_METHOD_INLINE = 2;       // Fallback, inline bytes
+}</code></pre>
+
+        <hr style="margin: 3rem 0; border-color: var(--border-color);">
+
+        <h2>MCP API (Port 8080/mcp)</h2>
+
+        <p>The Model Context Protocol interface allows any MCP-compliant AI agent to interact with Qinematos.</p>
+
+        <h3>Initialization</h3>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/mcp/initialize</code></td>
+              <td>Initialize MCP session</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/mcp/ping</code></td>
+              <td>Connection health check</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Resources</h3>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/mcp/resources/list</code></td>
+              <td>List available resources (topics)</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/mcp/resources/read</code></td>
+              <td>Read a specific resource</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/mcp/resources/subscribe</code></td>
+              <td>Subscribe to resource updates</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Tools</h3>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method method-get">GET</span></td>
+              <td><code>/mcp/tools/list</code></td>
+              <td>List available tools</td>
+            </tr>
+            <tr>
+              <td><span class="method method-post">POST</span></td>
+              <td><code>/mcp/tools/call</code></td>
+              <td>Execute a tool</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Available MCP Tools</h3>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Tool Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>publish_context</code></td>
+              <td>Publish data to a Context Topic</td>
+            </tr>
+            <tr>
+              <td><code>create_topic</code></td>
+              <td>Create a new Context Topic</td>
+            </tr>
+            <tr>
+              <td><code>get_topic_info</code></td>
+              <td>Get metadata about a topic</td>
+            </tr>
+            <tr>
+              <td><code>subscribe_topic</code></td>
+              <td>Subscribe to topic updates</td>
+            </tr>
+            <tr>
+              <td><code>get_ipc_handle</code></td>
+              <td>Get IPC handle for zero-copy access</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>MCP Tool Call Example</h4>
+
+        <div class="code-header">
+          <span>Request</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST http://localhost:8080/mcp/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "publish_context",
+    "arguments": {
+      "topic": "finance.trades",
+      "data": [{"symbol": "AAPL", "price": 185.50}],
+      "lineage_id": "trace-123"
+    }
+  }'</code></pre>
+
+        <hr style="margin: 3rem 0; border-color: var(--border-color);">
+
+        <h2>Python Client Example</h2>
+
+        <p>Reading zero-copy context from a Python agent:</p>
+
+        <div class="code-header">
+          <span>Python</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>import pyarrow as pa
+
+# Received IPCHandle from gRPC Watch stream
+ipc_handle = {
+    "file_path": "/dev/shm/qinematos/contexts/finance.trades/123.arrow",
+    "offset": 32,  # Skip Qinematos header
+    "length": 4096
+}
+
+# Memory-map the file (true zero-copy!)
+source = pa.memory_map(ipc_handle["file_path"], 'r')
+source.seek(ipc_handle["offset"])
+
+# Read Arrow table directly from shared memory
+reader = pa.ipc.open_stream(source)
+table = reader.read_all()
+
+# Data is now accessible without any copying
+print(f"Read {table.num_rows} rows in zero-copy!")
+print(table.to_pandas())</code></pre>
+
+        <h2>Error Codes</h2>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>400</code></td>
+              <td>Bad Request - Invalid parameters or malformed request</td>
+            </tr>
+            <tr>
+              <td><code>404</code></td>
+              <td>Not Found - Topic or resource does not exist</td>
+            </tr>
+            <tr>
+              <td><code>409</code></td>
+              <td>Conflict - Topic already exists</td>
+            </tr>
+            <tr>
+              <td><code>500</code></td>
+              <td>Internal Error - Server-side failure</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <a href="../" class="logo">Q<span>inematos</span></a>
+          <p class="footer-copy mt-2">The Deterministic Data Base Plane for Agentic AI</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="./">Documentation</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+          <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Qinematos Architecture - Three-layer architecture for the Deterministic Data Base Plane.">
+  <title>Architecture - Qinematos Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="../" class="logo">Q<span>inematos</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../#features">Features</a></li>
+        <li><a href="../#architecture">Architecture</a></li>
+        <li><a href="../#performance">Performance</a></li>
+        <li><a href="./" class="active">Documentation</a></li>
+        <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Documentation Content -->
+  <main class="container">
+    <div class="docs-layout">
+      <aside class="docs-sidebar">
+        <ul class="docs-nav">
+          <li><a href="./">Overview</a></li>
+          <li><a href="quick-start.html">Quick Start</a></li>
+          <li><a href="architecture.html" class="active">Architecture</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+        </ul>
+      </aside>
+
+      <article class="docs-content">
+        <h1>System Architecture</h1>
+
+        <p>Qinematos implements a clean three-layer architecture that separates concerns between agents, core services, and the underlying data plane.</p>
+
+        <h2>Architecture Overview</h2>
+
+        <div class="architecture-diagram">
+          <div class="arch-layer">
+            <h4>Layer 1: Agent Layer</h4>
+            <p class="text-muted">Python agents (PyArrow mmap) | Java agents (FFM) | Rust agents (Arrow2) | Any MCP-compliant client</p>
+          </div>
+          <div class="arch-arrow">v</div>
+          <div class="arch-layer">
+            <h4>Layer 2: Core Services</h4>
+            <p class="text-muted">Context Orchestrator | Zero-Copy IPC Engine | Arrow Serializer | Lineage Tracker | Xodus Store</p>
+          </div>
+          <div class="arch-arrow">v</div>
+          <div class="arch-layer">
+            <h4>Layer 3: Data Base Plane</h4>
+            <p class="text-muted">REST API :8080 | gRPC Service :9000 | MCP Server /mcp | Shared Memory /dev/shm</p>
+          </div>
+        </div>
+
+        <h2>Core Components</h2>
+
+        <h3>Context Orchestrator</h3>
+        <p>The central coordination service managing agent registration, topic subscriptions, and context routing.</p>
+        <ul>
+          <li>Agent lifecycle management (registration, heartbeat, deregistration)</li>
+          <li>Topic-based publish/subscribe with wildcard pattern matching</li>
+          <li>Subscription updates via gRPC streaming</li>
+          <li>Context version management with replay capability</li>
+        </ul>
+
+        <h3>Zero-Copy IPC Engine</h3>
+        <p>The performance core of Qinematos, using Java 25 Foreign Function & Memory API.</p>
+        <ul>
+          <li>Memory-mapped files in shared memory (<code>/dev/shm</code> on Linux, temp directory on Windows)</li>
+          <li>Arena-based memory management for deterministic cleanup</li>
+          <li>Atomic writes with proper memory barriers</li>
+          <li>File path handles instead of inline data transfer</li>
+        </ul>
+
+        <div class="code-header">
+          <span>IPC Flow</span>
+        </div>
+        <pre><code>1. Publisher serializes data to Arrow format
+2. IPC Engine writes Arrow bytes to memory-mapped file
+3. Engine returns IPCHandle with file path and metadata
+4. Subscribers receive handle via gRPC stream
+5. Subscribers mmap the file directly (zero-copy read)</code></pre>
+
+        <h3>Arrow Context Serializer</h3>
+        <p>Handles conversion between domain objects and Apache Arrow format.</p>
+        <ul>
+          <li>Pre-defined schemas: <code>agent.context</code>, <code>lineage.trace</code>, <code>finance.market_data</code>, <code>generic.keyvalue</code></li>
+          <li>Schema versioning per topic</li>
+          <li>Cross-language compatibility (Java, Python, Rust, Go)</li>
+          <li>Efficient columnar storage for analytical queries</li>
+        </ul>
+
+        <h3>Topic Manager</h3>
+        <p>Manages the topic hierarchy and subscription state.</p>
+        <ul>
+          <li>Hierarchical topic naming: <code>finance.trades.realtime</code></li>
+          <li>Wildcard subscriptions: <code>finance.*</code>, <code>finance.**</code></li>
+          <li>Schema binding per topic</li>
+          <li>Retention policies and access control</li>
+        </ul>
+
+        <h3>Lineage Tracker</h3>
+        <p>Provides complete data provenance for audit and compliance.</p>
+        <ul>
+          <li>Content-addressable trace IDs (SHA-256 hash of payload)</li>
+          <li>Transformation chain tracking</li>
+          <li>eBPF kernel-level audit capability</li>
+          <li>OpenTelemetry integration for distributed tracing</li>
+        </ul>
+
+        <h3>Xodus Persistence Store</h3>
+        <p>ACID storage for topic metadata, schemas, and configuration.</p>
+        <ul>
+          <li>JetBrains Xodus embedded key-value store</li>
+          <li>Pure Java implementation - no external dependencies</li>
+          <li>Transactional guarantees for metadata operations</li>
+          <li>Configurable memory usage (default 50%)</li>
+        </ul>
+
+        <h2>Data Flow</h2>
+
+        <h3>Publishing Context</h3>
+        <div class="code-header">
+          <span>Publish Flow</span>
+        </div>
+        <pre><code>Agent -> REST/gRPC API
+     -> Context Orchestrator
+     -> Arrow Serializer (convert to Arrow format)
+     -> Lineage Tracker (generate trace ID)
+     -> IPC Engine (write to shared memory)
+     -> Topic Manager (notify subscribers)
+     -> gRPC Stream (send IPCHandle to subscribers)</code></pre>
+
+        <h3>Subscribing to Context</h3>
+        <div class="code-header">
+          <span>Subscribe Flow</span>
+        </div>
+        <pre><code>Agent -> gRPC Watch API
+     -> Context Orchestrator (register subscription)
+     -> Topic Manager (match patterns)
+     -> ... (wait for publications)
+     -> Receive IPCHandle via stream
+     -> Memory-map file path (zero-copy)
+     -> Read Arrow data directly from shared memory</code></pre>
+
+        <h2>Delivery Methods</h2>
+
+        <p>Qinematos supports multiple delivery strategies based on agent location and capability:</p>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Use Case</th>
+              <th>Latency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>DELIVERY_METHOD_IPC</code></td>
+              <td>Local agents with mmap support</td>
+              <td class="highlight">&lt;5ms</td>
+            </tr>
+            <tr>
+              <td><code>DELIVERY_METHOD_ARROW_FLIGHT</code></td>
+              <td>Remote agents, distributed clusters</td>
+              <td>Network RTT + minimal serialization</td>
+            </tr>
+            <tr>
+              <td><code>DELIVERY_METHOD_INLINE</code></td>
+              <td>Fallback for agents without mmap</td>
+              <td>Depends on payload size</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Technology Choices</h2>
+
+        <h3>Why Java 25?</h3>
+        <p>The Foreign Function & Memory (FFM) API in Java 25 provides safe, efficient access to native memory without JNI overhead. This enables true zero-copy operations while maintaining Java's type safety and garbage collection benefits.</p>
+
+        <h3>Why Apache Arrow?</h3>
+        <p>Arrow provides a language-agnostic columnar format that enables zero-copy reads across process boundaries. Any language with an Arrow implementation can read Qinematos context data without serialization overhead.</p>
+
+        <h3>Why Quarkus?</h3>
+        <p>Quarkus offers cloud-native features (fast startup, low memory), reactive programming model (Mutiny), and excellent GraalVM native image support for production deployments.</p>
+
+        <h3>Why gRPC?</h3>
+        <p>gRPC provides efficient binary serialization, HTTP/2 multiplexing, and native streaming support - essential for the Watch API's server-streaming subscriptions.</p>
+
+        <h2>Configuration</h2>
+
+        <p>Key configuration properties in <code>application.properties</code>:</p>
+
+        <div class="code-header">
+          <span>application.properties</span>
+        </div>
+        <pre><code># Server ports
+quarkus.http.port=8080
+quarkus.grpc.server.port=9000
+
+# IPC Engine
+qinematos.ipc.base-path=/dev/shm/qinematos
+qinematos.ipc.max-segment-size=1073741824
+qinematos.ipc.enable-lineage=true
+
+# Persistence
+qinematos.xodus.data-dir=./data/xodus
+qinematos.xodus.memory-usage-percentage=50
+
+# Observability
+quarkus.micrometer.enabled=true
+quarkus.otel.enabled=true</code></pre>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <a href="../" class="logo">Q<span>inematos</span></a>
+          <p class="footer-copy mt-2">The Deterministic Data Base Plane for Agentic AI</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="./">Documentation</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+          <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

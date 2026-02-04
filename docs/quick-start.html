@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Qinematos Quick Start Guide - Get running in 5 minutes.">
+  <title>Quick Start - Qinematos Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="../" class="logo">Q<span>inematos</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../#features">Features</a></li>
+        <li><a href="../#architecture">Architecture</a></li>
+        <li><a href="../#performance">Performance</a></li>
+        <li><a href="./" class="active">Documentation</a></li>
+        <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Documentation Content -->
+  <main class="container">
+    <div class="docs-layout">
+      <aside class="docs-sidebar">
+        <ul class="docs-nav">
+          <li><a href="./">Overview</a></li>
+          <li><a href="quick-start.html" class="active">Quick Start</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+        </ul>
+      </aside>
+
+      <article class="docs-content">
+        <h1>Quick Start Guide</h1>
+
+        <p>Get Qinematos running in 5 minutes. This guide walks you through setup, running the server, and making your first API calls.</p>
+
+        <h2>Prerequisites</h2>
+
+        <ul>
+          <li><strong>Java 25</strong> (with Foreign Function & Memory API support)</li>
+          <li><strong>Maven 3.9+</strong></li>
+          <li><strong>Python 3.11+</strong> (optional, for agent examples)</li>
+          <li><strong>Docker</strong> (optional, for containerized deployment)</li>
+        </ul>
+
+        <h3>Verify Java Version</h3>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>java -version
+# Should show: openjdk version "25" or higher</code></pre>
+
+        <h2>Step 1: Clone and Build</h2>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code># Clone the repository
+git clone https://github.com/kinematos-io/qinematos.git
+cd qinematos/qinematos-java25-quarkus
+
+# Build the project (skip tests for faster build)
+mvn clean package -DskipTests</code></pre>
+
+        <h2>Step 2: Run the Server</h2>
+
+        <h3>Development Mode (Hot Reload)</h3>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>mvn quarkus:dev</code></pre>
+
+        <p>The server starts with:</p>
+        <ul>
+          <li><strong>REST API</strong> on <code>http://localhost:8080</code></li>
+          <li><strong>gRPC Service</strong> on <code>localhost:9000</code></li>
+          <li><strong>MCP Server</strong> on <code>http://localhost:8080/mcp</code></li>
+        </ul>
+
+        <h3>Production Mode</h3>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>java -jar target/quarkus-app/quarkus-run.jar</code></pre>
+
+        <h2>Step 3: Verify Installation</h2>
+
+        <h3>Health Check</h3>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl http://localhost:8080/api/v1/health</code></pre>
+
+        <p>Expected response:</p>
+
+        <div class="code-header">
+          <span>Response</span>
+        </div>
+        <pre><code>{
+  "status": "UP",
+  "checks": [
+    {"name": "IPC Engine", "status": "UP"},
+    {"name": "Topic Manager", "status": "UP"},
+    {"name": "Xodus Store", "status": "UP"}
+  ]
+}</code></pre>
+
+        <h3>System Status</h3>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl http://localhost:8080/demo/status</code></pre>
+
+        <h2>Step 4: Create Your First Topic</h2>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST http://localhost:8080/api/v1/topics \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "demo.context",
+    "description": "My first context topic",
+    "schemaType": "generic.keyvalue"
+  }'</code></pre>
+
+        <h2>Step 5: Publish Data</h2>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST http://localhost:8080/api/v1/topics/demo.context/publish \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": [
+      {"key": "user_preference", "value": "dark_mode"},
+      {"key": "language", "value": "en-US"}
+    ]
+  }'</code></pre>
+
+        <p>Response includes the IPC handle and lineage ID:</p>
+
+        <div class="code-header">
+          <span>Response</span>
+        </div>
+        <pre><code>{
+  "success": true,
+  "version": 1,
+  "ipcHandle": {
+    "handleId": "demo.context_1_abc123",
+    "filePath": "/dev/shm/qinematos/contexts/demo.context/1.arrow",
+    "payloadSize": 256
+  },
+  "lineageId": "lin_abc123-def456"
+}</code></pre>
+
+        <h2>Step 6: Try the Zero-Copy Demo</h2>
+
+        <p>See zero-copy IPC in action:</p>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST "http://localhost:8080/demo/zero-copy?records=1000"</code></pre>
+
+        <p>This demonstrates:</p>
+        <ul>
+          <li>Arrow serialization of 1000 records</li>
+          <li>Memory-mapped file creation</li>
+          <li>IPC handle generation</li>
+          <li>Lineage tracking</li>
+        </ul>
+
+        <h2>Step 7: Read Data from Python (Zero-Copy)</h2>
+
+        <p>Install PyArrow:</p>
+
+        <div class="code-header">
+          <span>Terminal</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>pip install pyarrow</code></pre>
+
+        <p>Read context data with true zero-copy:</p>
+
+        <div class="code-header">
+          <span>Python</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>import pyarrow as pa
+
+# Use the file path from the IPC handle
+ipc_file = "/dev/shm/qinematos/contexts/demo.context/1.arrow"
+
+# Memory-map the file (zero-copy!)
+source = pa.memory_map(ipc_file, 'r')
+
+# Skip the 32-byte Qinematos header
+source.seek(32)
+
+# Read the Arrow table
+reader = pa.ipc.open_stream(source)
+table = reader.read_all()
+
+# Print the data
+print(f"Read {table.num_rows} rows")
+print(table.to_pandas())</code></pre>
+
+        <h2>Available Schema Types</h2>
+
+        <p>Qinematos provides pre-defined Arrow schemas:</p>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Schema Type</th>
+              <th>Fields</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>generic.keyvalue</code></td>
+              <td>key, value, metadata, timestamp</td>
+              <td>General purpose context</td>
+            </tr>
+            <tr>
+              <td><code>agent.context</code></td>
+              <td>agent_id, context_type, payload, created_at</td>
+              <td>Agent state and context</td>
+            </tr>
+            <tr>
+              <td><code>lineage.trace</code></td>
+              <td>trace_id, parent_id, operation, timestamp</td>
+              <td>Audit and lineage tracking</td>
+            </tr>
+            <tr>
+              <td><code>finance.market_data</code></td>
+              <td>symbol, price, volume, timestamp</td>
+              <td>Financial market data</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Configuration</h2>
+
+        <p>Key settings in <code>src/main/resources/application.properties</code>:</p>
+
+        <div class="code-header">
+          <span>application.properties</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code># Server ports
+quarkus.http.port=8080
+quarkus.grpc.server.port=9000
+
+# IPC Configuration
+qinematos.ipc.base-path=/dev/shm/qinematos  # Linux
+# qinematos.ipc.base-path=${java.io.tmpdir}/qinematos  # Windows
+qinematos.ipc.max-segment-size=1073741824  # 1GB
+
+# Persistence
+qinematos.xodus.data-dir=./data/xodus
+
+# Enable lineage tracking
+qinematos.ipc.enable-lineage=true</code></pre>
+
+        <h2>Next Steps</h2>
+
+        <div class="features-grid" style="margin-top: 2rem;">
+          <a href="architecture.html" class="feature-card" style="text-decoration: none;">
+            <h3>Architecture</h3>
+            <p>Understand the three-layer architecture and core components.</p>
+          </a>
+
+          <a href="api-reference.html" class="feature-card" style="text-decoration: none;">
+            <h3>API Reference</h3>
+            <p>Complete REST, gRPC, and MCP API documentation.</p>
+          </a>
+        </div>
+
+        <h2>Troubleshooting</h2>
+
+        <h3>Java Version Error</h3>
+        <p>If you see "Unsupported class file major version", ensure you're using Java 25:</p>
+        <div class="code-header">
+          <span>Terminal</span>
+        </div>
+        <pre><code>export JAVA_HOME=/path/to/java25
+mvn clean package -DskipTests</code></pre>
+
+        <h3>IPC Path on Windows</h3>
+        <p>Windows doesn't have <code>/dev/shm</code>. Qinematos automatically uses the temp directory, but you can configure it explicitly:</p>
+        <div class="code-header">
+          <span>application.properties</span>
+        </div>
+        <pre><code>qinematos.ipc.base-path=${java.io.tmpdir}/qinematos</code></pre>
+
+        <h3>Port Already in Use</h3>
+        <p>If port 8080 or 9000 is occupied:</p>
+        <div class="code-header">
+          <span>application.properties</span>
+        </div>
+        <pre><code>quarkus.http.port=8081
+quarkus.grpc.server.port=9001</code></pre>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <a href="../" class="logo">Q<span>inematos</span></a>
+          <p class="footer-copy mt-2">The Deterministic Data Base Plane for Agentic AI</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="./">Documentation</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+          <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

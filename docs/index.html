@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Qinematos Documentation - Learn how to use the Deterministic Data Base Plane for Agentic AI.">
+  <title>Documentation - Qinematos</title>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="../" class="logo">Q<span>inematos</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../#features">Features</a></li>
+        <li><a href="../#architecture">Architecture</a></li>
+        <li><a href="../#performance">Performance</a></li>
+        <li><a href="./" class="active">Documentation</a></li>
+        <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Documentation Content -->
+  <main class="container">
+    <div class="docs-layout">
+      <aside class="docs-sidebar">
+        <ul class="docs-nav">
+          <li><a href="./" class="active">Overview</a></li>
+          <li><a href="quick-start.html">Quick Start</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+        </ul>
+      </aside>
+
+      <article class="docs-content">
+        <h1>Qinematos Documentation</h1>
+
+        <p>Welcome to the Qinematos documentation. Qinematos is a <strong>Deterministic Data Base Plane</strong> designed specifically for AI agent infrastructure, implementing the <strong>RVP Framework</strong> (Recent, Vulgate, Plain) for zero-copy context delivery.</p>
+
+        <h2>What is Qinematos?</h2>
+        <p>Qinematos solves the "AI Plumbing Crisis" - the fundamental limitations of current RAG (Retrieval-Augmented Generation) systems that plague modern AI agent deployments:</p>
+
+        <ul>
+          <li><strong>Probabilistic search</strong> gives agents fuzzy, unreliable context</li>
+          <li><strong>High latency</strong> from JSON serialization (10-100ms per request)</li>
+          <li><strong>No audit trail</strong> for regulatory compliance</li>
+          <li><strong>Memory waste</strong> from multiple data copies between processes</li>
+        </ul>
+
+        <h2>The RVP Framework</h2>
+
+        <h3>R - Recent</h3>
+        <p>Live gRPC streaming ensures agents receive <em>current</em> data, not stale cached snapshots. The Watch API provides server-streaming subscriptions with reactive Mutiny core.</p>
+
+        <h3>V - Vulgate</h3>
+        <p>Apache Arrow provides a canonical data format - a "common tongue" for all agents. Whether your agent is written in Python, Java, Rust, or any other language, it reads the same strongly-typed schema.</p>
+
+        <h3>P - Plain</h3>
+        <p>Zero-copy IPC via Java 25 Foreign Function & Memory API. Data stays where it is - agents receive file path handles and read directly from memory-mapped files at RAM speed.</p>
+
+        <h2>Getting Started</h2>
+
+        <div class="features-grid" style="margin-top: 2rem;">
+          <a href="quick-start.html" class="feature-card" style="text-decoration: none;">
+            <div class="feature-icon">1</div>
+            <h3>Quick Start</h3>
+            <p>Get Qinematos running in 5 minutes. Clone, build, and make your first API call.</p>
+          </a>
+
+          <a href="architecture.html" class="feature-card" style="text-decoration: none;">
+            <div class="feature-icon">2</div>
+            <h3>Architecture</h3>
+            <p>Understand the three-layer architecture and core components.</p>
+          </a>
+
+          <a href="api-reference.html" class="feature-card" style="text-decoration: none;">
+            <div class="feature-icon">3</div>
+            <h3>API Reference</h3>
+            <p>Complete REST, gRPC, and MCP API documentation with examples.</p>
+          </a>
+        </div>
+
+        <h2>Key Features</h2>
+
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Zero-Copy IPC</strong></td>
+              <td>Memory-mapped files using Java 25 FFM API for &lt;5ms latency</td>
+            </tr>
+            <tr>
+              <td><strong>Topic-Based Pub/Sub</strong></td>
+              <td>Hierarchical topics with Arrow schema versioning</td>
+            </tr>
+            <tr>
+              <td><strong>Full Lineage</strong></td>
+              <td>Content-addressable traces with eBPF kernel-level auditing</td>
+            </tr>
+            <tr>
+              <td><strong>MCP Protocol</strong></td>
+              <td>Anthropic Model Context Protocol for standardized agent access</td>
+            </tr>
+            <tr>
+              <td><strong>gRPC Watch API</strong></td>
+              <td>Server-streaming subscriptions with reactive core</td>
+            </tr>
+            <tr>
+              <td><strong>ACID Persistence</strong></td>
+              <td>JetBrains Xodus embedded transactional storage</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Technology Stack</h2>
+
+        <ul>
+          <li><strong>Runtime:</strong> Quarkus 3.30.2 with GraalVM native support</li>
+          <li><strong>Language:</strong> Java 25 with Foreign Function & Memory API</li>
+          <li><strong>Data Format:</strong> Apache Arrow 18.0</li>
+          <li><strong>Messaging:</strong> gRPC with Mutiny reactive streams</li>
+          <li><strong>Persistence:</strong> JetBrains Xodus ACID store</li>
+          <li><strong>Observability:</strong> OpenTelemetry + Prometheus metrics</li>
+        </ul>
+
+        <h2>License</h2>
+        <p>Qinematos is open source software licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License 2.0</a>.</p>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <a href="../" class="logo">Q<span>inematos</span></a>
+          <p class="footer-copy mt-2">The Deterministic Data Base Plane for Agentic AI</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="./">Documentation</a></li>
+          <li><a href="api-reference.html">API Reference</a></li>
+          <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

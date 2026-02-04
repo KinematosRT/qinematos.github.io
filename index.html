@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Qinematos - The Deterministic Data Base Plane for Agentic AI. Zero-copy context delivery with full lineage tracking.">
+  <meta name="keywords" content="AI, agents, context, data plane, zero-copy, Apache Arrow, gRPC, MCP">
+  <meta name="author" content="Qinematos">
+  <meta property="og:title" content="Qinematos - Deterministic Data Base Plane for Agentic AI">
+  <meta property="og:description" content="Stop feeding billion-dollar agents penny-stock plumbing. Zero-copy context delivery with full lineage tracking.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kinematos.io">
+  <meta property="og:image" content="https://kinematos.io/images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Qinematos - Deterministic Data Base Plane for Agentic AI">
+  <meta name="twitter:description" content="Zero-copy context delivery for AI agents. RVP Framework: Recent, Vulgate, Plain.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <title>Qinematos - Deterministic Data Base Plane for Agentic AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="/" class="logo">Q<span>inematos</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="docs/">Documentation</a></li>
+        <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Open Source - Apache 2.0</span>
+        <h1>The Deterministic Data Base Plane for Agentic AI</h1>
+        <p class="tagline">Stop feeding your billion-dollar agents with penny-stock plumbing. Get RVP: Recent, Vulgate, Plain.</p>
+        <div class="hero-cta">
+          <a href="docs/quick-start.html" class="btn btn-primary">Get Started</a>
+          <a href="#architecture" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section id="problem">
+    <div class="container">
+      <h2 class="text-center">The AI Plumbing Crisis</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Current RAG systems are fundamentally broken. They give your sophisticated AI agents fuzzy, unreliable context through inefficient infrastructure.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3>Probabilistic Search</h3>
+          <p>Vector searches return "maybe relevant" results. Agents need deterministic, exact context - not fuzzy approximations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h3>High Latency</h3>
+          <p>JSON serialization adds 10-100ms per request. At scale, this becomes seconds of wasted compute on data marshalling.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg></div>
+          <h3>No Audit Trail</h3>
+          <p>Regulated industries need to know exactly what data an agent saw. RAG provides zero verifiable lineage.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/></svg></div>
+          <h3>Memory Waste</h3>
+          <p>Data gets copied 3-5 times between processes. Your expensive GPU memory is full of redundant context copies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RVP Solution Section -->
+  <section id="solution" class="features">
+    <div class="container">
+      <h2 class="text-center">The RVP Framework</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto;">Three principles that transform how AI agents receive context.</p>
+
+      <div class="rvp-grid">
+        <div class="rvp-card">
+          <div class="rvp-letter">R</div>
+          <div class="rvp-word">Recent</div>
+          <p>Live gRPC streaming delivers real-time updates. Agents see current data, not stale cached snapshots from minutes ago.</p>
+        </div>
+        <div class="rvp-card">
+          <div class="rvp-letter">V</div>
+          <div class="rvp-word">Vulgate</div>
+          <p>Apache Arrow provides a canonical format. Any language reads the same schema - Java, Python, Rust, all speak the same tongue.</p>
+        </div>
+        <div class="rvp-card">
+          <div class="rvp-letter">P</div>
+          <div class="rvp-word">Plain</div>
+          <p>Zero-copy IPC via memory-mapped files. Data stays where it is - agents read directly from shared memory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <div class="container">
+      <h2 class="text-center">Core Capabilities</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Built from the ground up for AI agent infrastructure.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v10M4.22 4.22l4.24 4.24m7.08 7.08l4.24 4.24M1 12h6m6 0h10M4.22 19.78l4.24-4.24m7.08-7.08l4.24-4.24"/></svg></div>
+          <h3>Zero-Copy IPC</h3>
+          <p>Java 25 Foreign Function & Memory API enables true zero-copy data transfer. Memory-mapped files deliver context at RAM speed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h3>Topic-Based Pub/Sub</h3>
+          <p>Hierarchical topics (finance.trades.realtime) with Arrow schema versioning. Subscribe to patterns with wildcards.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Full Lineage Tracking</h3>
+          <p>Content-addressable trace IDs with eBPF kernel-level auditing. Complete provenance for regulatory compliance.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M20 15h2M9 2v2M9 20v2M2 9h2M20 9h2"/></svg></div>
+          <h3>MCP Protocol Support</h3>
+          <p>Anthropic Model Context Protocol implementation. Standardized resource and tool access for any MCP-compliant agent.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <h3>gRPC Watch API</h3>
+          <p>Server-streaming subscriptions with Mutiny reactive core. Agents receive IPC handles, not inline payloads.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M20.88 6.84A10 10 0 0 0 12 2v10h10a10 10 0 0 0-1.12-5.16z"/></svg></div>
+          <h3>ACID Persistence</h3>
+          <p>JetBrains Xodus provides embedded ACID storage. Pure Java, no external dependencies, battle-tested reliability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Section -->
+  <section id="architecture" class="features">
+    <div class="container">
+      <h2 class="text-center">Three-Layer Architecture</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Clean separation between agents, core services, and the data plane.</p>
+
+      <div class="architecture-diagram">
+        <div class="arch-layer">
+          <h4>Agent Layer</h4>
+          <p class="text-muted">Python (PyArrow) | Java (FFM) | Rust (Arrow2) | Any MCP Client</p>
+        </div>
+        <div class="arch-arrow">v</div>
+        <div class="arch-layer">
+          <h4>Core Services</h4>
+          <p class="text-muted">Context Orchestrator | Zero-Copy IPC | Arrow Serializer | Lineage Tracker | Xodus Store</p>
+        </div>
+        <div class="arch-arrow">v</div>
+        <div class="arch-layer">
+          <h4>Data Base Plane</h4>
+          <p class="text-muted">REST :8080 | gRPC :9000 | MCP /mcp | Memory-Mapped Files /dev/shm</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="docs/architecture.html" class="btn btn-secondary">View Full Architecture</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Section -->
+  <section id="performance">
+    <div class="container">
+      <h2 class="text-center">Performance That Matters</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Real improvements over traditional RAG infrastructure.</p>
+
+      <table class="performance-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Traditional RAG</th>
+            <th>Qinematos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Context Delivery Latency</td>
+            <td class="dim">10-100ms</td>
+            <td class="highlight">&lt;5ms</td>
+          </tr>
+          <tr>
+            <td>Memory Copies</td>
+            <td class="dim">3-5 copies</td>
+            <td class="highlight">0 copies</td>
+          </tr>
+          <tr>
+            <td>CPU Overhead</td>
+            <td class="dim">High (serialization)</td>
+            <td class="highlight">40% lower</td>
+          </tr>
+          <tr>
+            <td>Throughput</td>
+            <td class="dim">Network-bound</td>
+            <td class="highlight">RAM-speed</td>
+          </tr>
+          <tr>
+            <td>Audit Trail</td>
+            <td class="dim">None</td>
+            <td class="highlight">Full lineage + eBPF</td>
+          </tr>
+          <tr>
+            <td>Cross-Language</td>
+            <td class="dim">JSON conversion</td>
+            <td class="highlight">Native Arrow</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <section class="features">
+    <div class="container">
+      <h2 class="text-center">Built on Proven Technology</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Production-grade components you can trust.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Java 25</h3>
+          <p>Foreign Function & Memory API for native memory access without JNI overhead.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Quarkus 3.30</h3>
+          <p>Cloud-native runtime with GraalVM support. Lightning-fast startup, low memory footprint.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Apache Arrow 18</h3>
+          <p>Industry-standard columnar format. Cross-language compatibility out of the box.</p>
+        </div>
+        <div class="feature-card">
+          <h3>gRPC + Mutiny</h3>
+          <p>Reactive streaming with non-blocking I/O. High-performance message delivery.</p>
+        </div>
+        <div class="feature-card">
+          <h3>JetBrains Xodus</h3>
+          <p>Embedded ACID key-value store. Pure Java, transactional, reliable.</p>
+        </div>
+        <div class="feature-card">
+          <h3>OpenTelemetry</h3>
+          <p>Distributed tracing and metrics. Full observability for production deployments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start Section -->
+  <section id="quickstart" class="quick-start">
+    <div class="container">
+      <h2 class="text-center">Get Started in 5 Minutes</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">From clone to running API in a few commands.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h4>Clone and Build</h4>
+            <div class="code-header">
+              <span>Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>git clone https://github.com/kinematos-io/qinematos.git
+cd qinematos/qinematos-java25-quarkus
+mvn clean package -DskipTests</code></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h4>Run the Server</h4>
+            <div class="code-header">
+              <span>Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>mvn quarkus:dev</code></pre>
+            <p class="mt-2 text-muted">Server starts on :8080 (REST) and :9000 (gRPC)</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h4>Test the API</h4>
+            <div class="code-header">
+              <span>Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code># Health check
+curl http://localhost:8080/api/v1/health
+
+# Create a topic
+curl -X POST http://localhost:8080/api/v1/topics \
+  -H "Content-Type: application/json" \
+  -d '{"name": "demo.context", "schemaType": "generic.keyvalue"}'
+
+# Try zero-copy demo
+curl -X POST http://localhost:8080/demo/zero-copy?records=100</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="docs/quick-start.html" class="btn btn-primary">Full Quick Start Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap Section -->
+  <section id="roadmap">
+    <div class="container">
+      <h2 class="text-center">Roadmap</h2>
+      <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Building the future of AI agent infrastructure, one milestone at a time.</p>
+
+      <div class="roadmap-grid">
+        <div class="roadmap-phase completed">
+          <div class="phase-header">
+            <span class="phase-badge">Phase 1</span>
+            <span class="phase-status done">Completed</span>
+          </div>
+          <h4>MVP</h4>
+          <ul>
+            <li>Core Context Graph Engine</li>
+            <li>Zero-Copy IPC Engine (Java 25 FFM)</li>
+            <li>Apache Arrow serialization</li>
+            <li>gRPC Watch API</li>
+            <li>Basic persistence (Xodus)</li>
+          </ul>
+        </div>
+
+        <div class="roadmap-phase current">
+          <div class="phase-header">
+            <span class="phase-badge">Phase 2</span>
+            <span class="phase-status active">In Progress</span>
+          </div>
+          <h4>Core Features</h4>
+          <ul>
+            <li>Temporal and spatial tracking</li>
+            <li>Privacy and access control</li>
+            <li>Arrow Flight integration</li>
+            <li>Performance benchmarks</li>
+          </ul>
+        </div>
+
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <span class="phase-badge">Phase 3</span>
+            <span class="phase-status">Planned</span>
+          </div>
+          <h4>Integrations</h4>
+          <ul>
+            <li>LangChain adapter</li>
+            <li>AutoGPT connector</li>
+            <li>CrewAI integration</li>
+            <li>External DB support</li>
+          </ul>
+        </div>
+
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <span class="phase-badge">Phase 4</span>
+            <span class="phase-status">Future</span>
+          </div>
+          <h4>Visualization</h4>
+          <ul>
+            <li>Graph visualization dashboard</li>
+            <li>Context propagation analytics</li>
+            <li>Lineage explorer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section>
+    <div class="container text-center">
+      <h2>Ready to Transform Your AI Infrastructure?</h2>
+      <p style="max-width: 600px; margin: 1rem auto 2rem;">Join the movement to give AI agents the infrastructure they deserve.</p>
+      <div class="hero-cta" style="justify-content: center;">
+        <a href="docs/quick-start.html" class="btn btn-primary">Get Started</a>
+        <a href="https://github.com/kinematos-io/qinematos" class="btn btn-secondary" target="_blank">Star on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <a href="/" class="logo">Q<span>inematos</span></a>
+          <p class="footer-copy mt-2">The Deterministic Data Base Plane for Agentic AI</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="docs/">Documentation</a></li>
+          <li><a href="docs/api-reference.html">API Reference</a></li>
+          <li><a href="https://github.com/kinematos-io/qinematos" target="_blank">GitHub</a></li>
+          <li><a href="https://github.com/kinematos-io/qinematos/blob/main/LICENSE" target="_blank">Apache 2.0 License</a></li>
+        </ul>
+      </div>
+      <div class="text-center mt-4">
+        <p class="footer-copy">Reliability - Verifiability - Performance</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+</body>
+</html>
