@@ -134,8 +134,10 @@ function highlightCode() {
     html = html.replace(/\b(\d+)\b/g, '<span class="token-number">$1</span>');
 
     // Keywords
-    const keywords = ['curl', 'git', 'mvn', 'java', 'pip', 'import', 'from', 'def', 'class',
-                      'return', 'if', 'else', 'for', 'while', 'message', 'string', 'int64',
+    // Note: 'class' and 'string' are excluded because they appear in the generated
+    // span attributes (class="token-string") and would corrupt the HTML
+    const keywords = ['curl', 'git', 'mvn', 'java', 'pip', 'import', 'from', 'def',
+                      'return', 'if', 'else', 'for', 'while', 'message', 'int64',
                       'repeated', 'enum', 'true', 'false', 'null', 'POST', 'GET', 'PUT', 'DELETE'];
     keywords.forEach(keyword => {
       const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
