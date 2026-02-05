@@ -645,6 +645,11 @@ footer {
   .docs-layout {
     grid-template-columns: 1fr;
   }
+
+  .docs-sidebar {
+    position: static;
+    margin-bottom: 2rem;
+  }
 }
 
 .docs-sidebar {

@@ -124,8 +124,9 @@ function highlightCode() {
     // Skip if already highlighted
     if (html.includes('token-')) return;
 
-    // Comments (// and #)
-    html = html.replace(/(\/\/.*$|#.*$)/gm, '<span class="token-comment">$1</span>');
+    // Comments (// and #) - but not in URLs (avoid matching https:// or http://)
+    html = html.replace(/(?<!:)(\/\/.*$)/gm, '<span class="token-comment">$1</span>');
+    html = html.replace(/(?<![\w])#.*$/gm, '<span class="token-comment">$&</span>');
 
     // Strings
     html = html.replace(/(".*?"|'.*?')/g, '<span class="token-string">$1</span>');
