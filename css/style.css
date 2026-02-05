@@ -379,9 +379,7 @@ nav {
     radial-gradient(circle at 12% 18%, rgba(255, 215, 0, 0.035) 0%, transparent 48%),
     radial-gradient(circle at 88% 82%, rgba(255, 193, 7, 0.025) 0%, transparent 52%),
     linear-gradient(148deg, var(--bg-elevated) 0%, rgba(26, 26, 26, 0.92) 100%);
-  border-width: 1px;
-  border-style: solid;
-  border-image: linear-gradient(148deg, rgba(255, 215, 0, 0.15), transparent 68%) 1;
+  border: 1px solid rgba(255, 215, 0, 0.15);
   border-radius: 11px;
   padding: var(--space-organ);
   transition: transform 0.385s cubic-bezier(0.34, 1.26, 0.64, 1), 
