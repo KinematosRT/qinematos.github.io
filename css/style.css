@@ -714,15 +714,22 @@ footer {
   .docs-layout {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .docs-sidebar {
     position: static !important;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 1rem;
+    order: 1;
+  }
+  
+  .docs-content {
+    order: 2;
   }
 }
 
