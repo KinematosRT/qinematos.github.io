@@ -124,11 +124,14 @@ function highlightCode() {
     // Skip if already highlighted
     if (html.includes('token-')) return;
 
-    // Comments (// and #)
-    html = html.replace(/(\/\/.*$|#.*$)/gm, '<span class="token-comment">$1</span>');
-
-    // Strings
+    // Strings (do this first to protect URLs and other content)
     html = html.replace(/(".*?"|'.*?')/g, '<span class="token-string">$1</span>');
+
+    // Comments (// and #) - but not in URLs
+    // Match // comments only at the start of a line or after whitespace
+    html = html.replace(/(^|\s)(\/\/.*)$/gm, '$1<span class="token-comment">$2</span>');
+    // Match # comments at the start of a line or after whitespace, but not inside spans
+    html = html.replace(/(^|\s)(#.*)$/gm, '$1<span class="token-comment">$2</span>');
 
     // Numbers
     html = html.replace(/\b(\d+)\b/g, '<span class="token-number">$1</span>');
