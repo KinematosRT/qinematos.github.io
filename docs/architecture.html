@@ -55,12 +55,20 @@
             <h4>Layer 1: Agent Layer</h4>
             <p class="text-muted">Python agents (PyArrow mmap) | Java agents (FFM) | Rust agents (Arrow2) | Any MCP-compliant client</p>
           </div>
-          <div class="arch-arrow">v</div>
+          <div class="arch-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+          </div>
           <div class="arch-layer">
             <h4>Layer 2: Core Services</h4>
             <p class="text-muted">Context Orchestrator | Zero-Copy IPC Engine | Arrow Serializer | Lineage Tracker | Xodus Store</p>
           </div>
-          <div class="arch-arrow">v</div>
+          <div class="arch-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+          </div>
           <div class="arch-layer">
             <h4>Layer 3: Data Base Plane</h4>
             <p class="text-muted">REST API :8080 | gRPC Service :9000 | MCP Server /mcp | Shared Memory /dev/shm</p>
@@ -162,6 +170,7 @@
 
         <p>Qinematos supports multiple delivery strategies based on agent location and capability:</p>
 
+        <div class="api-table-wrapper">
         <table class="api-table">
           <thead>
             <tr>
@@ -188,6 +197,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <h2>Technology Choices</h2>
 
