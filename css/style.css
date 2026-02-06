@@ -309,6 +309,10 @@ nav {
   flex-wrap: wrap;
 }
 
+.hero-cta.centered {
+  justify-content: center;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -862,10 +866,45 @@ footer {
   font-size: var(--type-small);
 }
 
+/* Error Page */
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-organ);
+  background: var(--bg-primary);
+}
+
+.error-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-code {
+  font-size: clamp(4rem, 14vw, 8rem);
+  font-weight: 800;
+  color: var(--accent-primary);
+  line-height: var(--rhythm-compressed);
+  margin-bottom: var(--space-cell);
+}
+
+.error-title {
+  font-size: var(--type-heading);
+  color: var(--text-primary);
+  margin-bottom: var(--space-atom);
+}
+
+.error-message {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-tissue);
+}
+
 /* Documentation Layout */
 .docs-layout {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: minmax(16rem, 24vw) 1fr;
   gap: var(--space-system);
   padding-top: calc(var(--header-height) + var(--space-organ));
   min-height: 100vh;
@@ -874,8 +913,8 @@ footer {
 /* Tablet and below - sidebar becomes non-sticky and moves to top */
 @media (max-width: 1024px) {
   .docs-layout {
-    grid-template-columns: 200px 1fr;
-    gap: var(--space-organ);
+    grid-template-columns: minmax(14rem, 22vw) 1fr;
+    gap: clamp(var(--space-cell), 3vw, var(--space-organ));
   }
 }
 
@@ -978,6 +1017,24 @@ footer {
 }
 
 /* Utility Classes */
+.lead-text {
+  max-width: min(calc(var(--max-width) * 0.58), 44rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: var(--space-organ) 0;
+}
+
+.mt-molecule { margin-top: var(--space-molecule); }
+.mt-tissue { margin-top: var(--space-tissue); }
+.mt-organ { margin-top: var(--space-organ); }
+.mb-0 { margin-bottom: 0; }
+.mb-tissue { margin-bottom: var(--space-tissue); }
+.mb-organ { margin-bottom: var(--space-organ); }
 .text-center { text-align: center; }
 .text-yellow { color: var(--accent-primary); }
 .text-muted { color: var(--text-muted); }

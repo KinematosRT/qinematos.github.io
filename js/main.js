@@ -49,27 +49,32 @@ document.addEventListener('DOMContentLoaded', function() {
   const sections = document.querySelectorAll('section[id]');
   const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
 
-  function highlightNav() {
-    const scrollPos = window.scrollY + 100;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-        navItems.forEach(item => {
-          item.classList.remove('active');
-          if (item.getAttribute('href') === '#' + sectionId) {
-            item.classList.add('active');
-          }
-        });
-      }
+  if (sections.length && navItems.length) {
+    const navMap = new Map();
+    navItems.forEach(item => {
+      const id = item.getAttribute('href').replace('#', '');
+      navMap.set(id, item);
     });
-  }
 
-  window.addEventListener('scroll', highlightNav);
-  highlightNav();
+    const setActive = (id) => {
+      navItems.forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === `#${id}`);
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-45% 0px -45% 0px',
+      threshold: 0.1
+    });
+
+    sections.forEach(section => observer.observe(section));
+  }
 
   // Header Background on Scroll
   const header = document.querySelector('header');
@@ -117,35 +122,106 @@ function copyCode(button) {
  * Simple syntax highlighting for code blocks
  * Highlights keywords, strings, comments, etc.
  */
+const HIGHLIGHT_KEYWORDS = ['curl', 'git', 'mvn', 'java', 'pip', 'import', 'from', 'def',
+  'return', 'if', 'else', 'for', 'while', 'message', 'int64',
+  'repeated', 'enum', 'true', 'false', 'null', 'POST', 'GET', 'PUT', 'DELETE'];
+
+const keywordPattern = new RegExp(`\\b(${HIGHLIGHT_KEYWORDS.join('|')})\\b`, 'g');
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function tokenizeCode(code) {
+  const tokens = [];
+  let i = 0;
+
+  while (i < code.length) {
+    const char = code[i];
+    const next = code[i + 1];
+
+    if (char === '"' || char === "'") {
+      let j = i + 1;
+      let escaped = false;
+
+      while (j < code.length) {
+        const current = code[j];
+        if (!escaped && current === char) {
+          j++;
+          break;
+        }
+        escaped = !escaped && current === '\\';
+        j++;
+      }
+
+      tokens.push({ type: 'string', value: code.slice(i, j) });
+      i = j;
+      continue;
+    }
+
+    if (char === '/' && next === '/') {
+      let j = i + 2;
+      while (j < code.length && code[j] !== '\n') {
+        j++;
+      }
+      tokens.push({ type: 'comment', value: code.slice(i, j) });
+      i = j;
+      continue;
+    }
+
+    if (char === '#' && (i === 0 || /\s/.test(code[i - 1]))) {
+      let j = i + 1;
+      while (j < code.length && code[j] !== '\n') {
+        j++;
+      }
+      tokens.push({ type: 'comment', value: code.slice(i, j) });
+      i = j;
+      continue;
+    }
+
+    let j = i;
+    while (j < code.length) {
+      const current = code[j];
+      const lookahead = code[j + 1];
+      if (current === '"' || current === "'" || (current === '/' && lookahead === '/') || (current === '#' && (j === 0 || /\s/.test(code[j - 1])))) {
+        break;
+      }
+      j++;
+    }
+
+    tokens.push({ type: 'plain', value: code.slice(i, j) });
+    i = j;
+  }
+
+  return tokens;
+}
+
+function renderPlain(text) {
+  const escaped = escapeHtml(text);
+  const withNumbers = escaped.replace(/\b\d+(\.\d+)?\b/g, '<span class="token-number">$&</span>');
+  return withNumbers.replace(keywordPattern, '<span class="token-keyword">$1</span>');
+}
+
 function highlightCode() {
   document.querySelectorAll('pre code').forEach(block => {
-    let html = block.innerHTML;
+    const source = block.textContent;
+    if (!source) return;
 
-    // Skip if already highlighted
-    if (html.includes('token-')) return;
-
-    // Strings (do this first to protect URLs and other content)
-    html = html.replace(/(".*?"|'.*?')/g, '<span class="token-string">$1</span>');
-
-    // Comments (// and #) - but not in URLs
-    // Match // comments only at the start of a line or after whitespace
-    html = html.replace(/(^|\s)(\/\/.*)$/gm, '$1<span class="token-comment">$2</span>');
-    // Match # comments at the start of a line or after whitespace, but not inside spans
-    html = html.replace(/(^|\s)(#.*)$/gm, '$1<span class="token-comment">$2</span>');
-
-    // Numbers
-    html = html.replace(/\b(\d+)\b/g, '<span class="token-number">$1</span>');
-
-    // Keywords
-    // Note: 'class' and 'string' are excluded because they appear in the generated
-    // span attributes (class="token-string") and would corrupt the HTML
-    const keywords = ['curl', 'git', 'mvn', 'java', 'pip', 'import', 'from', 'def',
-                      'return', 'if', 'else', 'for', 'while', 'message', 'int64',
-                      'repeated', 'enum', 'true', 'false', 'null', 'POST', 'GET', 'PUT', 'DELETE'];
-    keywords.forEach(keyword => {
-      const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
-      html = html.replace(regex, '<span class="token-keyword">$1</span>');
-    });
+    const tokens = tokenizeCode(source);
+    const html = tokens.map(token => {
+      if (token.type === 'string') {
+        return `<span class="token-string">${escapeHtml(token.value)}</span>`;
+      }
+      if (token.type === 'comment') {
+        return `<span class="token-comment">${escapeHtml(token.value)}</span>`;
+      }
+      return renderPlain(token.value);
+    }).join('');
 
     block.innerHTML = html;
   });
