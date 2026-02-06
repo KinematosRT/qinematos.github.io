@@ -139,63 +139,98 @@ function escapeHtml(text) {
 
 function tokenizeCode(code) {
   const tokens = [];
-  let i = 0;
+  let buffer = '';
+  let stringQuote = null;
+  let inComment = false;
+  let inNumber = false;
 
-  while (i < code.length) {
+  const pushToken = (type) => {
+    if (buffer.length) {
+      tokens.push({ type, value: buffer });
+      buffer = '';
+    }
+  };
+
+  for (let i = 0; i < code.length; i++) {
     const char = code[i];
     const next = code[i + 1];
+    const prev = code[i - 1];
+
+    if (stringQuote) {
+      buffer += char;
+      if (char === '\\' && next) {
+        buffer += next;
+        i++;
+        continue;
+      }
+      if (char === stringQuote) {
+        pushToken('string');
+        stringQuote = null;
+      }
+      continue;
+    }
+
+    if (inComment) {
+      buffer += char;
+      if (char === '\n') {
+        pushToken('comment');
+        inComment = false;
+      }
+      continue;
+    }
+
+    if (inNumber) {
+      if (/[\d._]/.test(char)) {
+        buffer += char;
+        continue;
+      }
+      pushToken('number');
+      inNumber = false;
+      // fall through to process current character normally
+    }
 
     if (char === '"' || char === "'") {
-      let j = i + 1;
-      let escaped = false;
-
-      while (j < code.length) {
-        const current = code[j];
-        if (!escaped && current === char) {
-          j++;
-          break;
-        }
-        escaped = !escaped && current === '\\';
-        j++;
-      }
-
-      tokens.push({ type: 'string', value: code.slice(i, j) });
-      i = j;
+      pushToken('plain');
+      stringQuote = char;
+      buffer = char;
       continue;
     }
 
     if (char === '/' && next === '/') {
-      let j = i + 2;
-      while (j < code.length && code[j] !== '\n') {
-        j++;
-      }
-      tokens.push({ type: 'comment', value: code.slice(i, j) });
-      i = j;
+      pushToken('plain');
+      inComment = true;
+      buffer = '//';
+      i++;
       continue;
     }
 
-    if (char === '#' && (i === 0 || /\s/.test(code[i - 1]))) {
-      let j = i + 1;
-      while (j < code.length && code[j] !== '\n') {
-        j++;
-      }
-      tokens.push({ type: 'comment', value: code.slice(i, j) });
-      i = j;
+    if (char === '#' && (i === 0 || prev === '\n')) {
+      pushToken('plain');
+      inComment = true;
+      buffer = '#';
       continue;
     }
 
-    let j = i;
-    while (j < code.length) {
-      const current = code[j];
-      const lookahead = code[j + 1];
-      if (current === '"' || current === "'" || (current === '/' && lookahead === '/') || (current === '#' && (j === 0 || /\s/.test(code[j - 1])))) {
-        break;
-      }
-      j++;
+    if (!inNumber && /\d/.test(char) && (!prev || /\s|[([{\-+*/:,]/.test(prev))) {
+      pushToken('plain');
+      inNumber = true;
+      buffer = char;
+      continue;
     }
 
-    tokens.push({ type: 'plain', value: code.slice(i, j) });
-    i = j;
+    buffer += char;
+  }
+
+  if (buffer.length) {
+    if (stringQuote) {
+      pushToken('string');
+    } else if (inComment) {
+      pushToken('comment');
+    } else if (inNumber) {
+      pushToken('number');
+    } else {
+      pushToken('plain');
+    }
   }
 
   return tokens;
@@ -203,8 +238,7 @@ function tokenizeCode(code) {
 
 function renderPlain(text) {
   const escaped = escapeHtml(text);
-  const withNumbers = escaped.replace(/\b\d+(\.\d+)?\b/g, '<span class="token-number">$&</span>');
-  return withNumbers.replace(keywordPattern, '<span class="token-keyword">$1</span>');
+  return escaped.replace(keywordPattern, '<span class="token-keyword">$1</span>');
 }
 
 function highlightCode() {
@@ -219,6 +253,9 @@ function highlightCode() {
       }
       if (token.type === 'comment') {
         return `<span class="token-comment">${escapeHtml(token.value)}</span>`;
+      }
+      if (token.type === 'number') {
+        return `<span class="token-number">${escapeHtml(token.value)}</span>`;
       }
       return renderPlain(token.value);
     }).join('');

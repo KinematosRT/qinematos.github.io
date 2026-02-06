@@ -22,6 +22,8 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   --max-width: 1200px;
   --header-height: 72px;
+  --sidebar-width: 18rem;
+  --sidebar-width-compact: 14rem;
 
   /* Qinematos Fibonacci-inspired spacing scale */
   --space-quantum: 5px;
@@ -309,8 +311,9 @@ nav {
   flex-wrap: wrap;
 }
 
-.hero-cta.centered {
+.hero-actions {
   justify-content: center;
+  margin-top: var(--space-molecule);
 }
 
 /* Buttons */
@@ -866,6 +869,11 @@ footer {
   font-size: var(--type-small);
 }
 
+.footer-bottom {
+  text-align: center;
+  margin-top: var(--space-tissue);
+}
+
 /* Error Page */
 .error-page {
   min-height: 100vh;
@@ -904,7 +912,7 @@ footer {
 /* Documentation Layout */
 .docs-layout {
   display: grid;
-  grid-template-columns: minmax(16rem, 24vw) 1fr;
+  grid-template-columns: minmax(var(--sidebar-width), 24vw) 1fr;
   gap: var(--space-system);
   padding-top: calc(var(--header-height) + var(--space-organ));
   min-height: 100vh;
@@ -913,7 +921,7 @@ footer {
 /* Tablet and below - sidebar becomes non-sticky and moves to top */
 @media (max-width: 1024px) {
   .docs-layout {
-    grid-template-columns: minmax(14rem, 22vw) 1fr;
+    grid-template-columns: minmax(var(--sidebar-width-compact), 22vw) 1fr;
     gap: clamp(var(--space-cell), 3vw, var(--space-organ));
   }
 }
@@ -1016,11 +1024,24 @@ footer {
   }
 }
 
-/* Utility Classes */
-.lead-text {
+/* Section Elements */
+.section-lead {
   max-width: min(calc(var(--max-width) * 0.58), 44rem);
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto var(--space-organ);
+}
+
+.section-lead.compact {
+  margin-bottom: var(--space-cell);
+}
+
+.section-actions {
+  text-align: center;
+  margin-top: var(--space-tissue);
+}
+
+.cta-lead {
+  margin-top: var(--space-molecule);
+  margin-bottom: var(--space-tissue);
 }
 
 .section-divider {
@@ -1029,23 +1050,22 @@ footer {
   margin: var(--space-organ) 0;
 }
 
-.mt-molecule { margin-top: var(--space-molecule); }
-.mt-tissue { margin-top: var(--space-tissue); }
-.mt-organ { margin-top: var(--space-organ); }
-.mb-0 { margin-bottom: 0; }
-.mb-tissue { margin-bottom: var(--space-tissue); }
-.mb-organ { margin-bottom: var(--space-organ); }
+.docs-feature-links {
+  margin-top: var(--space-tissue);
+}
+
+.step-note {
+  margin-top: var(--space-atom);
+  color: var(--text-muted);
+}
+
+.footer-subtext {
+  margin-top: var(--space-atom);
+}
+
 .text-center { text-align: center; }
 .text-yellow { color: var(--accent-primary); }
 .text-muted { color: var(--text-muted); }
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
 
 /* Responsive Typography */
 @media (max-width: 768px) {
