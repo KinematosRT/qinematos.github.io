@@ -165,12 +165,20 @@
           <h4>Agent Layer</h4>
           <p class="text-muted">Python (PyArrow) | Java (FFM) | Rust (Arrow2) | Any MCP Client</p>
         </div>
-        <div class="arch-arrow">v</div>
+        <div class="arch-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </div>
         <div class="arch-layer">
           <h4>Core Services</h4>
           <p class="text-muted">Context Orchestrator | Zero-Copy IPC | Arrow Serializer | Lineage Tracker | Xodus Store</p>
         </div>
-        <div class="arch-arrow">v</div>
+        <div class="arch-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </div>
         <div class="arch-layer">
           <h4>Data Base Plane</h4>
           <p class="text-muted">REST :8080 | gRPC :9000 | MCP /mcp | Memory-Mapped Files /dev/shm</p>
@@ -189,47 +197,49 @@
       <h2 class="text-center">Performance That Matters</h2>
       <p class="text-center" style="max-width: 700px; margin: 0 auto 3rem;">Real improvements over traditional RAG infrastructure.</p>
 
-      <table class="performance-table">
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Traditional RAG</th>
-            <th>Qinematos</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Context Delivery Latency</td>
-            <td class="dim">10-100ms</td>
-            <td class="highlight">&lt;5ms</td>
-          </tr>
-          <tr>
-            <td>Memory Copies</td>
-            <td class="dim">3-5 copies</td>
-            <td class="highlight">0 copies</td>
-          </tr>
-          <tr>
-            <td>CPU Overhead</td>
-            <td class="dim">High (serialization)</td>
-            <td class="highlight">40% lower</td>
-          </tr>
-          <tr>
-            <td>Throughput</td>
-            <td class="dim">Network-bound</td>
-            <td class="highlight">RAM-speed</td>
-          </tr>
-          <tr>
-            <td>Audit Trail</td>
-            <td class="dim">None</td>
-            <td class="highlight">Full lineage + eBPF</td>
-          </tr>
-          <tr>
-            <td>Cross-Language</td>
-            <td class="dim">JSON conversion</td>
-            <td class="highlight">Native Arrow</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table class="performance-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Traditional RAG</th>
+              <th>Qinematos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Context Delivery Latency</td>
+              <td class="dim">10-100ms</td>
+              <td class="highlight">&lt;5ms</td>
+            </tr>
+            <tr>
+              <td>Memory Copies</td>
+              <td class="dim">3-5 copies</td>
+              <td class="highlight">0 copies</td>
+            </tr>
+            <tr>
+              <td>CPU Overhead</td>
+              <td class="dim">High (serialization)</td>
+              <td class="highlight">40% lower</td>
+            </tr>
+            <tr>
+              <td>Throughput</td>
+              <td class="dim">Network-bound</td>
+              <td class="highlight">RAM-speed</td>
+            </tr>
+            <tr>
+              <td>Audit Trail</td>
+              <td class="dim">None</td>
+              <td class="highlight">Full lineage + eBPF</td>
+            </tr>
+            <tr>
+              <td>Cross-Language</td>
+              <td class="dim">JSON conversion</td>
+              <td class="highlight">Native Arrow</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

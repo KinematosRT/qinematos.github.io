@@ -540,19 +540,23 @@ nav {
 }
 
 /* Performance Table */
+/* Performance Table Wrapper for horizontal scrolling */
+.table-wrapper {
+  margin-top: var(--space-organ);
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
 .performance-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: var(--space-organ);
   background:
     radial-gradient(ellipse at 28% 18%, rgba(255, 215, 0, 0.022) 0%, transparent 58%),
     linear-gradient(156deg, rgba(20, 20, 20, 0.98) 0%, var(--bg-surface) 100%);
   border: 1px solid rgba(255, 215, 0, 0.11);
   border-radius: 12px;
   overflow: hidden;
-  display: block;
-  overflow-x: auto;
 }
 
 .performance-table th,
@@ -583,29 +587,12 @@ nav {
 
 .performance-table tbody tr {
   transition: all 0.295s cubic-bezier(0.42, 0, 0.58, 1);
-  position: relative;
-}
-
-.performance-table tbody tr::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(185deg, var(--accent-secondary), var(--accent-primary));
-  opacity: 0;
-  transform: scaleY(0.6);
-  transition: all 0.295s cubic-bezier(0.42, 0, 0.58, 1);
+  border-left: 3px solid transparent;
 }
 
 .performance-table tbody tr:hover {
   background: rgba(255, 215, 0, 0.032);
-}
-
-.performance-table tbody tr:hover::before {
-  opacity: 1;
-  transform: scaleY(1);
+  border-left-color: var(--accent-primary);
 }
 
 .performance-table tr:last-child td {
@@ -750,12 +737,15 @@ pre code {
 }
 
 /* API Endpoint Table */
+/* API Table Wrapper for horizontal scrolling */
+.api-table-wrapper {
+  margin: var(--space-tissue) 0;
+  overflow-x: auto;
+}
+
 .api-table {
   width: 100%;
   border-collapse: collapse;
-  margin: var(--space-tissue) 0;
-  display: block;
-  overflow-x: auto;
 }
 
 .api-table th,
