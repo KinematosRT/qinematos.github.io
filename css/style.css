@@ -587,29 +587,12 @@ nav {
 
 .performance-table tbody tr {
   transition: all 0.295s cubic-bezier(0.42, 0, 0.58, 1);
-  position: relative;
-}
-
-.performance-table tbody tr::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(185deg, var(--accent-secondary), var(--accent-primary));
-  opacity: 0;
-  transform: scaleY(0.6);
-  transition: all 0.295s cubic-bezier(0.42, 0, 0.58, 1);
+  border-left: 3px solid transparent;
 }
 
 .performance-table tbody tr:hover {
   background: rgba(255, 215, 0, 0.032);
-}
-
-.performance-table tbody tr:hover::before {
-  opacity: 1;
-  transform: scaleY(1);
+  border-left-color: var(--accent-primary);
 }
 
 .performance-table tr:last-child td {
