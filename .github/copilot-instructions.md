@@ -73,14 +73,14 @@ The design system is entirely defined in `/css/style.css` using CSS variables. *
 
 All spacing uses Fibonacci-inspired values:
 ```css
---space-quantum: 5px
---space-atom: 8px
---space-molecule: 13px
---space-cell: 21px
---space-tissue: 34px
---space-organ: 55px
---space-system: 89px
---space-organism: 144px
+--space-quantum: 5px;
+--space-atom: 8px;
+--space-molecule: 13px;
+--space-cell: 21px;
+--space-tissue: 34px;
+--space-organ: 55px;
+--space-system: 89px;
+--space-organism: 144px;
 ```
 
 #### Type Scale (√2 Ratio = 1.414)
