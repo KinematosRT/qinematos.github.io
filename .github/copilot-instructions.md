@@ -195,7 +195,7 @@ All JavaScript is in `/js/main.js` and uses vanilla ES6+:
 1. Check if a CSS variable exists for your use case
 2. If adding new spacing/sizing, reuse existing Fibonacci variables
 3. Test responsively at 375px, 768px, 1200px+ breakpoints
-4. Refer to `.github/instructions/*.instructions.md` for CSS-specific guidance
+4. Refer to the "Design System & Conventions" section in this file for CSS-specific guidance
 
 ### SVG Icons
 
