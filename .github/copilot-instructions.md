@@ -165,7 +165,7 @@ Dark theme with gold accents:
 - Ensure all interactive elements are keyboard accessible
 - Provide sufficient color contrast (gold #FFD700 on dark backgrounds)
 - Use `alt=""` for decorative images
-- Logo structure: `<img>Q<span>inematos</span>` to preserve brand name for screen readers
+- Logo structure: The logo is composed of an `<img>` tag followed by `Q<span>inematos</span>` to preserve the brand name for screen readers
 
 ### JavaScript Patterns
 
