@@ -74,7 +74,6 @@
 html {
   scroll-behavior: smooth;
   font-size: var(--type-body);
-  overflow-x: hidden;
 }
 
 body {
@@ -84,8 +83,21 @@ body {
   line-height: var(--rhythm-standard);
   min-height: 100vh;
   letter-spacing: var(--tracking-neutral);
-  width: 100%;
-  overflow-x: hidden;
+}
+
+/* Prevent media from causing horizontal overflow */
+img,
+video,
+svg,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+img,
+video,
+svg {
+  height: auto;
 }
 
 /* Typography */
@@ -337,6 +349,7 @@ nav {
 
 .hero-content {
   max-width: var(--content-width-narrow);
+  width: 100%;
 }
 
 .hero-badge {
@@ -365,8 +378,10 @@ nav {
   font-size: var(--type-subtitle);
   color: var(--text-secondary);
   margin-bottom: var(--space-organ);
-  max-width: var(--content-width-prose);
   line-height: var(--rhythm-extended);
+  max-width: var(--content-width-prose);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-cta {
@@ -856,6 +871,11 @@ pre code {
   padding-bottom: 0;
 }
 
+.step-content {
+  min-width: 0;
+  flex: 1;
+}
+
 .step-number {
   counter-increment: step;
   flex-shrink: 0;
@@ -892,12 +912,19 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-tissue);
+  min-width: 0;
+}
+
+.footer-content > div:first-child {
+  min-width: 0;
 }
 
 .footer-links {
   display: flex;
   gap: var(--space-tissue);
   list-style: none;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .footer-links a {
@@ -989,6 +1016,7 @@ footer {
   position: sticky;
   top: calc(var(--header-height) + var(--space-organ));
   height: fit-content;
+  min-width: 0;
 }
 
 .docs-nav {
@@ -1016,6 +1044,7 @@ footer {
 
 .docs-content {
   padding-bottom: var(--space-organism);
+  min-width: 0;
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
