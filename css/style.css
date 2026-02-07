@@ -374,6 +374,9 @@ nav {
   color: var(--text-secondary);
   margin-bottom: var(--space-organ);
   line-height: var(--rhythm-extended);
+  max-width: var(--content-width-prose);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-cta {
