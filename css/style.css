@@ -74,7 +74,6 @@
 html {
   scroll-behavior: smooth;
   font-size: var(--type-body);
-  overflow-x: hidden;
 }
 
 body {
@@ -84,8 +83,16 @@ body {
   line-height: var(--rhythm-standard);
   min-height: 100vh;
   letter-spacing: var(--tracking-neutral);
-  width: 100%;
-  overflow-x: hidden;
+}
+
+/* Prevent media from causing horizontal overflow */
+img,
+video,
+canvas,
+svg,
+iframe {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Typography */
@@ -113,7 +120,7 @@ p {
   margin-bottom: var(--space-cell);
   color: var(--text-secondary);
   line-height: var(--rhythm-extended);
-  max-width: var(--content-width-prose);
+  max-width: 100%;
 }
 
 /* List styling for better spacing and alignment */
@@ -337,6 +344,7 @@ nav {
 
 .hero-content {
   max-width: var(--content-width-narrow);
+  width: 100%;
 }
 
 .hero-badge {
@@ -365,7 +373,6 @@ nav {
   font-size: var(--type-subtitle);
   color: var(--text-secondary);
   margin-bottom: var(--space-organ);
-  max-width: var(--content-width-prose);
   line-height: var(--rhythm-extended);
 }
 
@@ -856,6 +863,11 @@ pre code {
   padding-bottom: 0;
 }
 
+.step-content {
+  min-width: 0;
+  flex: 1;
+}
+
 .step-number {
   counter-increment: step;
   flex-shrink: 0;
@@ -892,6 +904,12 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-tissue);
+  min-width: 0;
+}
+
+.footer-brand,
+.footer-links {
+  min-width: 0;
 }
 
 .footer-links {
