@@ -916,6 +916,7 @@ footer {
   display: flex;
   gap: var(--space-tissue);
   list-style: none;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
