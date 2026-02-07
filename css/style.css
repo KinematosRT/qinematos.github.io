@@ -117,19 +117,19 @@ p {
 }
 
 /* List styling for better spacing and alignment */
-:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol) {
+:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol:not(.nav-links):not(.footer-links):not(.docs-nav)) {
   margin: var(--space-cell) 0;
   padding-left: var(--space-tissue);
   color: var(--text-secondary);
   line-height: var(--rhythm-extended);
 }
 
-:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol) li {
+:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol:not(.nav-links):not(.footer-links):not(.docs-nav)) li {
   margin-bottom: var(--space-molecule);
   padding-left: var(--space-atom);
 }
 
-:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol) li:last-child {
+:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol:not(.nav-links):not(.footer-links):not(.docs-nav)) li:last-child {
   margin-bottom: 0;
 }
 
