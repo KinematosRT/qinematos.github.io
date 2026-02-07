@@ -74,6 +74,7 @@
 html {
   scroll-behavior: smooth;
   font-size: var(--type-body);
+  overflow-x: hidden;
 }
 
 body {
@@ -84,7 +85,6 @@ body {
   min-height: 100vh;
   letter-spacing: var(--tracking-neutral);
   width: 100%;
-  max-width: 100vw;
 }
 
 /* Typography */
