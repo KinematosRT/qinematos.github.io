@@ -907,7 +907,7 @@ footer {
   min-width: 0;
 }
 
-.footer-brand,
+.footer-content > div:first-child,
 .footer-links {
   min-width: 0;
 }
