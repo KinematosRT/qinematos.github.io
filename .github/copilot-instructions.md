@@ -16,7 +16,7 @@ This is a **static website** for Qinematos (pronounced "kih-NEM-uh-tohs") - The 
 ```
 /
 ├── .github/
-│   └── instructions/         # Path-specific instructions (e.g., CSS guidelines)
+│   └── copilot-instructions.md # Copilot instructions for the repository
 ├── index.html               # Landing page
 ├── docs/
 │   ├── index.html          # Documentation hub
