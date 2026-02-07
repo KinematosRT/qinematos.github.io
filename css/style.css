@@ -1019,10 +1019,6 @@ footer {
   min-width: 0;
 }
 
-.docs-content {
-  min-width: 0;
-}
-
 .docs-nav {
   list-style: none;
 }
@@ -1048,6 +1044,7 @@ footer {
 
 .docs-content {
   padding-bottom: var(--space-organism);
+  min-width: 0;
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
