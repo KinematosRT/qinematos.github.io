@@ -17,16 +17,16 @@ This is a **static website** for Qinematos (pronounced "kih-NEM-uh-tohs") - The 
 /
 ├── .github/
 │   └── instructions/         # Path-specific instructions (e.g., CSS guidelines)
-├── index.html               # Landing page (454 lines)
+├── index.html               # Landing page
 ├── docs/
-│   ├── index.html          # Documentation hub (169 lines)
-│   ├── architecture.html   # System architecture (263 lines)
-│   ├── api-reference.html  # REST, gRPC, MCP APIs (556 lines)
-│   └── quick-start.html    # Getting started guide (360 lines)
+│   ├── index.html          # Documentation hub
+│   ├── architecture.html   # System architecture
+│   ├── api-reference.html  # REST, gRPC, MCP APIs
+│   └── quick-start.html    # Getting started guide
 ├── css/
-│   └── style.css           # Single stylesheet (1449 lines)
+│   └── style.css           # Single stylesheet
 ├── js/
-│   └── main.js             # All JavaScript (329 lines)
+│   └── main.js             # All JavaScript
 ├── images/                 # Static assets including favicon.svg
 ├── CNAME                   # Custom domain config (kinematos.io)
 ├── AGENTS.md              # Agent onboarding document
