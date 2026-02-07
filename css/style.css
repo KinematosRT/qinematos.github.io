@@ -83,6 +83,8 @@ body {
   line-height: var(--rhythm-standard);
   min-height: 100vh;
   letter-spacing: var(--tracking-neutral);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Typography */
@@ -95,15 +97,40 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 { font-size: var(--type-display); }
-h2 { font-size: var(--type-header); }
-h3 { font-size: var(--type-subheader); }
-h4 { font-size: var(--type-heading); }
+h2 { font-size: var(--type-header); margin-top: var(--space-organ); }
+h3 { font-size: var(--type-subheader); margin-top: var(--space-tissue); }
+h4 { font-size: var(--type-heading); margin-top: var(--space-tissue); }
+
+/* Add spacing after headings before paragraphs */
+h2 + p,
+h3 + p,
+h4 + p {
+  margin-top: var(--space-molecule);
+}
 
 p {
   margin-bottom: var(--space-cell);
   color: var(--text-secondary);
   line-height: var(--rhythm-extended);
   max-width: var(--content-width-prose);
+}
+
+/* List styling for better spacing and alignment */
+/* List styling for better spacing and alignment */
+:is(ul, ol):not(.nav-links, .footer-links, .docs-nav) {
+  margin: var(--space-cell) 0;
+  padding-left: var(--space-tissue);
+  color: var(--text-secondary);
+  line-height: var(--rhythm-extended);
+}
+
+:is(ul, ol):not(.nav-links, .footer-links, .docs-nav) li {
+  margin-bottom: var(--space-molecule);
+  padding-left: var(--space-atom);
+}
+
+:is(ul, ol):not(.nav-links, .footer-links, .docs-nav) li:last-child {
+  margin-bottom: 0;
 }
 
 a {
