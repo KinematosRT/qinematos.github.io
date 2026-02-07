@@ -120,7 +120,7 @@ p {
   margin-bottom: var(--space-cell);
   color: var(--text-secondary);
   line-height: var(--rhythm-extended);
-  max-width: 100%;
+  max-width: var(--content-width-prose);
 }
 
 /* List styling for better spacing and alignment */
