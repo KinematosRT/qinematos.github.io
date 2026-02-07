@@ -88,11 +88,14 @@ body {
 /* Prevent media from causing horizontal overflow */
 img,
 video,
-canvas,
-svg,
-iframe {
+svg {
   max-width: 100%;
   height: auto;
+}
+
+canvas,
+iframe {
+  max-width: 100%;
 }
 
 /* Typography */
