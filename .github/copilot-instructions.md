@@ -156,7 +156,7 @@ Dark theme with gold accents:
    - Use wrapper divs for scrolling: `<div class="table-wrapper"><table>...</table></div>`
    - Never use `::before` or `::after` pseudo-elements on table rows
 
-8. **Overflow Handling**: Use `overflow-x: hidden` on body (already applied) and `max-width: 100vw` to prevent horizontal scrolling without clipping focus indicators.
+8. **Overflow Handling**: Prevent horizontal scrolling by fixing the source of overflow (e.g., constrain wide elements, use responsive layouts, and apply `max-width: 100vw` where appropriate). Avoid applying `overflow-x: hidden` to `body` or other containers that may contain focusable elements, since it can clip keyboard focus outlines and box-shadows; if needed, apply `overflow-x: hidden` only to specific non-focusable wrappers.
 
 ### Accessibility Standards
 
