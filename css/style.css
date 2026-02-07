@@ -183,10 +183,31 @@ nav {
   font-weight: 800;
   color: var(--accent-primary);
   letter-spacing: var(--tracking-condensed);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-atom);
+}
+
+.logo-icon {
+  width: 1.6em;
+  height: 1.6em;
+  flex-shrink: 0;
+  vertical-align: middle;
+  border-radius: 4px;
 }
 
 .logo span {
   color: var(--text-primary);
+}
+
+/* Pronunciation guide under hero heading */
+.pronunciation {
+  font-size: var(--type-small);
+  color: var(--text-muted);
+  font-style: italic;
+  letter-spacing: var(--tracking-open);
+  margin-bottom: var(--space-tissue);
+  margin-top: calc(-1 * var(--space-cell));
 }
 
 .nav-links {
