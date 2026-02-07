@@ -117,24 +117,24 @@ p {
 }
 
 /* List styling for better spacing and alignment */
-ul:not(.nav-links):not(.footer-links):not(.docs-nav),
-ol {
+:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol) {
   margin: var(--space-cell) 0;
   padding-left: var(--space-tissue);
   color: var(--text-secondary);
   line-height: var(--rhythm-extended);
 }
 
-ul:not(.nav-links):not(.footer-links):not(.docs-nav) li,
-ol li {
+:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol) li {
   margin-bottom: var(--space-molecule);
   padding-left: var(--space-atom);
 }
 
-ul:not(.nav-links):not(.footer-links):not(.docs-nav) li:last-child,
-ol li:last-child {
+:is(ul:not(.nav-links):not(.footer-links):not(.docs-nav), ol) li:last-child {
   margin-bottom: 0;
 }
+
+
+
 
 a {
   color: var(--accent-primary);
