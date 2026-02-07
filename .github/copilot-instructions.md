@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a **static website** for Qinematos (pronounced "kih-NEM-uh-tohs") - The Deterministic Data Base Plane for Agentic AI. The site is hosted on GitHub Pages and built using vanilla HTML, CSS, and JavaScript with no build tools or frameworks.
+This is a **static website** for Qinematos (pronounced "kih-NEM-uh-tohs") - The Deterministic Data Base Plane for Agentic AI. The brand name is spelled **"Qinematos"** while the public domain is `kinematos.io`; this mismatch is intentional and should be preserved consistently in documentation, code, and configuration. The site is hosted on GitHub Pages and built using vanilla HTML, CSS, and JavaScript with no build tools or frameworks.
 
 **Technology Stack:**
 - Pure HTML5, CSS3, and vanilla JavaScript
