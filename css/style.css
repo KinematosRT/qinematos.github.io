@@ -96,9 +96,10 @@ h1, h2, h3, h4, h5, h6 {
   line-height: var(--rhythm-compressed);
   letter-spacing: var(--tracking-condensed);
   margin-bottom: var(--space-cell);
+  margin-top: var(--space-tissue);
 }
 
-h1 { font-size: var(--type-display); }
+h1 { font-size: var(--type-display); margin-top: 0; }
 h2 { font-size: var(--type-header); }
 h3 { font-size: var(--type-subheader); }
 h4 { font-size: var(--type-heading); }
@@ -108,6 +109,11 @@ p {
   color: var(--text-secondary);
   line-height: var(--rhythm-extended);
   max-width: var(--content-width-prose);
+}
+
+/* Add space after headings before content */
+h2 + p, h3 + p, h4 + p {
+  margin-top: var(--space-molecule);
 }
 
 a {
@@ -203,11 +209,16 @@ nav {
 /* Pronunciation guide under hero heading */
 .pronunciation {
   font-size: var(--type-small);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-style: italic;
   letter-spacing: var(--tracking-open);
-  margin-bottom: var(--space-tissue);
-  margin-top: calc(-1 * var(--space-cell));
+  margin-bottom: var(--space-organ);
+  margin-top: var(--space-molecule);
+  padding: var(--space-atom) var(--space-molecule);
+  background: rgba(255, 215, 0, 0.05);
+  border-left: 2px solid var(--accent-dim);
+  border-radius: var(--space-quantum);
+  display: inline-block;
 }
 
 .nav-links {
@@ -342,6 +353,7 @@ nav {
   font-size: var(--type-subtitle);
   color: var(--text-secondary);
   margin-bottom: var(--space-organ);
+  margin-top: var(--space-tissue);
   max-width: var(--content-width-prose);
   line-height: var(--rhythm-extended);
 }
@@ -474,6 +486,7 @@ nav {
 .feature-card h3 {
   font-size: var(--type-heading);
   margin-bottom: var(--space-molecule);
+  margin-top: 0;
   letter-spacing: var(--tracking-ultra-tight);
 }
 
@@ -481,6 +494,7 @@ nav {
   font-size: var(--type-small);
   margin: 0;
   line-height: var(--rhythm-extended);
+  margin-top: var(--space-molecule);
 }
 
 /* RVP Section */
@@ -565,6 +579,13 @@ nav {
   font-weight: 600;
   margin-bottom: var(--space-tissue);
   letter-spacing: var(--tracking-open);
+}
+
+.rvp-card p {
+  font-size: var(--type-small);
+  line-height: var(--rhythm-extended);
+  margin-top: var(--space-molecule);
+  color: var(--text-secondary);
 }
 
 /* Performance Table */
@@ -754,7 +775,13 @@ pre code {
 
 .arch-layer h4 {
   color: var(--accent-primary);
-  margin-bottom: var(--space-atom);
+  margin-bottom: var(--space-molecule);
+  margin-top: 0;
+}
+
+.arch-layer p {
+  margin: 0;
+  margin-top: var(--space-atom);
 }
 
 .arch-arrow {
@@ -853,7 +880,12 @@ pre code {
 }
 
 .step-content h4 {
-  margin-bottom: var(--space-atom);
+  margin-bottom: var(--space-molecule);
+  margin-top: 0;
+}
+
+.step-content p {
+  margin-top: var(--space-molecule);
 }
 
 /* Footer */
@@ -1041,10 +1073,11 @@ footer {
 .section-lead {
   max-width: min(calc(var(--content-width-medium) * 0.58), var(--content-width-narrow));
   margin: 0 auto var(--space-organ);
+  margin-top: var(--space-molecule);
 }
 
 .section-lead.compact {
-  margin-bottom: var(--space-cell);
+  margin-bottom: var(--space-tissue);
 }
 
 .section-actions {
@@ -1367,18 +1400,20 @@ footer {
 .roadmap-phase li {
   color: var(--text-secondary);
   font-size: var(--type-small);
-  padding: var(--space-quantum) 0;
-  padding-left: var(--space-cell);
+  padding: var(--space-atom) 0;
+  padding-left: var(--space-tissue);
   position: relative;
+  line-height: var(--rhythm-standard);
 }
 
 .roadmap-phase li::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: calc(var(--space-atom) + (var(--space-quantum) / 2));
-  width: var(--space-quantum);
-  height: var(--space-quantum);
+  left: var(--space-molecule);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--space-atom);
+  height: var(--space-atom);
   background: var(--border-light);
   border-radius: 50%;
 }
