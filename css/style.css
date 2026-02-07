@@ -185,7 +185,6 @@ nav {
   letter-spacing: var(--tracking-condensed);
   display: inline-flex;
   align-items: center;
-  gap: var(--space-atom);
 }
 
 .logo-icon {
