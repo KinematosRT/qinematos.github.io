@@ -6,3 +6,4 @@ tmpclaude-*
 .vscode/
 # LangGraph
 .langgraph_api/
+.github/
