@@ -87,42 +87,42 @@ All spacing uses Fibonacci-inspired values:
 
 Typography uses a square root of 2 ratio for mathematical harmony:
 ```css
---type-micro: 0.707rem
---type-small: 0.841rem
---type-body: 1rem
---type-emphasis: 1.189rem
---type-subtitle: 1.414rem
---type-heading: 1.681rem
---type-subheader: 2.378rem
---type-header: 3.363rem
---type-display: 4.756rem
+--type-micro: 0.707rem;
+--type-small: 0.841rem;
+--type-body: 1rem;
+--type-emphasis: 1.189rem;
+--type-subtitle: 1.414rem;
+--type-heading: 1.681rem;
+--type-subheader: 2.378rem;
+--type-header: 3.363rem;
+--type-display: 4.756rem;
 ```
 
 #### Layout Variables
 
 ```css
---sidebar-width-min: 16rem
---sidebar-width-fluid: 22vw
---sidebar-width-max: 20rem
---content-width-narrow: 46rem
---content-width-medium: 74rem
---content-width-prose: 72ch
---grid-card-min: 16rem
---grid-card-max: 22rem
+--sidebar-width-min: 16rem;
+--sidebar-width-fluid: 22vw;
+--sidebar-width-max: 20rem;
+--content-width-narrow: 46rem;
+--content-width-medium: 74rem;
+--content-width-prose: 72ch;
+--grid-card-min: 16rem;
+--grid-card-max: 22rem;
 ```
 
 #### Color Palette
 
 Dark theme with gold accents:
 ```css
---bg-primary: #0a0a0a
---bg-surface: #141414
---bg-elevated: #1a1a1a
---accent-primary: #FFD700 (gold)
---accent-secondary: #FFC107
---text-primary: #f5f5f5
---text-secondary: #a3a3a3
---border-color: #262626
+--bg-primary: #0a0a0a;
+--bg-surface: #141414;
+--bg-elevated: #1a1a1a;
+--accent-primary: #FFD700; /* gold */
+--accent-secondary: #FFC107;
+--text-primary: #f5f5f5;
+--text-secondary: #a3a3a3;
+--border-color: #262626;
 ```
 
 ### Key Design Principles
